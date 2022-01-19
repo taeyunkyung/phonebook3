@@ -1,11 +1,13 @@
 package com.javaex.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping(value="/board")
+@RequestMapping(value = "/board")
 public class Test {
 
 	// 필드
@@ -17,20 +19,26 @@ public class Test {
 	public String TestPrint() {
 		System.out.println("TestPrint1");
 
-		return "/WEB-INF/views/Test.jsp";
+		return "Test";
 	}
 
-	@RequestMapping(value = "/writeForm", method = { RequestMethod.GET, RequestMethod.POST })
-	public String TestPrint2() {
+	@RequestMapping(value = "/write", method = { RequestMethod.GET, RequestMethod.POST })
+	public String TestPrint2(@RequestParam(value = "name") String name,
+			@RequestParam(value = "age", required = false, defaultValue = "-1") int age) {
 		System.out.println("TestPrint2");
 
-		return "/WEB-INF/views/Test.jsp";
+		System.out.println(name);
+		System.out.println(age);
+
+		return "Test";
 	}
-	
-	@RequestMapping(value = "/write", method = { RequestMethod.GET, RequestMethod.POST })
-	public String TestPrint3() {
+
+	@RequestMapping(value = "/writeForm/{no}", method = { RequestMethod.GET, RequestMethod.POST })
+	public String TestPrint3(@PathVariable("no") int no) {
 		System.out.println("TestPrint3");
 
-		return "/WEB-INF/views/Test.jsp";
+		System.out.println(no + "번 글 가져오기");
+
+		return "Test";
 	}
 }

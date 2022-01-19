@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +21,7 @@ public class PhoneController {
 	public String writeForm() {
 		System.out.println("PhoneController>writeForm");
 
-		return "/WEB-INF/views/writeForm.jsp";
+		return "writeForm";
 	}
 
 	/*@RequestMapping(value = "phone/write", method = { RequestMethod.GET, RequestMethod.POST })
@@ -55,7 +56,7 @@ public class PhoneController {
 		// controller --> DispatcherServlet
 		model.addAttribute("personList", personList);
 		
-		return "/WEB-INF/views/list.jsp";
+		return "list";
 	}
 	
 	@RequestMapping(value = "/updateForm", method = { RequestMethod.GET, RequestMethod.POST })
@@ -67,7 +68,7 @@ public class PhoneController {
 		PersonVo personVo = phoneDao.getPerson(personId);
 		model.addAttribute("personVo", personVo);
 		
-		return "/WEB-INF/views/updateForm.jsp";
+		return "updateForm";
 	}
 	
 	@RequestMapping(value = "/update", method = { RequestMethod.GET, RequestMethod.POST })
@@ -80,8 +81,8 @@ public class PhoneController {
 		return "redirect:/phone/list";
 	}
 	
-	@RequestMapping(value = "/delete", method = { RequestMethod.GET, RequestMethod.POST })
-	public String delete(@RequestParam("personId") int personId) {
+	@RequestMapping(value = "/delete/{personId}", method = { RequestMethod.GET, RequestMethod.POST })
+	public String delete(@PathVariable("personId") int personId) {
 		System.out.println("PhoneController>delete");
 		
 		PhoneDao phoneDao = new PhoneDao();
